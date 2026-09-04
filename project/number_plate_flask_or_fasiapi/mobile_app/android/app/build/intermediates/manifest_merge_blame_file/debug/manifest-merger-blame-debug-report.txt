@@ -1,0 +1,142 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.vehicleplateapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:5:5-80
+12-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:5:22-77
+13    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+13-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:6:5-76
+13-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:6:22-73
+14    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+14-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:7:5-79
+14-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:7:22-76
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+15-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:8:5-81
+15-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:8:22-78
+16    <!--
+17    This manifest file is used only by Gradle to configure debug-only capabilities
+18    for React Native Apps.
+19    -->
+20    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+20-->[com.facebook.react:react-android:0.74.5] C:\Users\user\.gradle\caches\transforms-4\33fac424075fc23f7fbb9fb5fe63964a\transformed\jetified-react-android-0.74.5-debug\AndroidManifest.xml:16:5-78
+20-->[com.facebook.react:react-android:0.74.5] C:\Users\user\.gradle\caches\transforms-4\33fac424075fc23f7fbb9fb5fe63964a\transformed\jetified-react-android-0.74.5-debug\AndroidManifest.xml:16:22-75
+21
+22    <permission
+22-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\6621c239d1e00abea0752787fff99403\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+23        android:name="com.vehicleplateapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+23-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\6621c239d1e00abea0752787fff99403\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+24        android:protectionLevel="signature" />
+24-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\6621c239d1e00abea0752787fff99403\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+25
+26    <uses-permission android:name="com.vehicleplateapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+26-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\6621c239d1e00abea0752787fff99403\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+26-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\6621c239d1e00abea0752787fff99403\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+27
+28    <application
+28-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:10:5-30:19
+29        android:name="com.vehicleplateapp.MainApplication"
+29-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:11:7-38
+30        android:allowBackup="false"
+30-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:15:7-34
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\6621c239d1e00abea0752787fff99403\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+32        android:debuggable="true"
+33        android:extractNativeLibs="false"
+34        android:icon="@mipmap/ic_launcher"
+34-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:13:7-41
+35        android:label="@string/app_name"
+35-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:12:7-39
+36        android:roundIcon="@mipmap/ic_launcher_round"
+36-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:14:7-52
+37        android:theme="@style/AppTheme"
+37-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:16:7-38
+38        android:usesCleartextTraffic="true" >
+38-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:17:7-42
+39        <activity
+39-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:18:7-29:18
+40            android:name="com.vehicleplateapp.MainActivity"
+40-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:19:9-37
+41            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+41-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:21:9-118
+42            android:exported="true"
+42-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:24:9-32
+43            android:label="@string/app_name"
+43-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:20:9-41
+44            android:launchMode="singleTask"
+44-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:22:9-40
+45            android:windowSoftInputMode="adjustResize" >
+45-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:23:9-51
+46            <intent-filter>
+46-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:25:9-28:25
+47                <action android:name="android.intent.action.MAIN" />
+47-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:26:13-65
+47-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:26:21-62
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:27:13-73
+49-->C:\Users\user\Downloads\project\number_plate_flask_or_fasiapi\mobile_app\android\app\src\main\AndroidManifest.xml:27:23-70
+50            </intent-filter>
+51        </activity>
+52        <activity
+52-->[com.facebook.react:react-android:0.74.5] C:\Users\user\.gradle\caches\transforms-4\33fac424075fc23f7fbb9fb5fe63964a\transformed\jetified-react-android-0.74.5-debug\AndroidManifest.xml:19:9-21:40
+53            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+53-->[com.facebook.react:react-android:0.74.5] C:\Users\user\.gradle\caches\transforms-4\33fac424075fc23f7fbb9fb5fe63964a\transformed\jetified-react-android-0.74.5-debug\AndroidManifest.xml:20:13-77
+54            android:exported="false" />
+54-->[com.facebook.react:react-android:0.74.5] C:\Users\user\.gradle\caches\transforms-4\33fac424075fc23f7fbb9fb5fe63964a\transformed\jetified-react-android-0.74.5-debug\AndroidManifest.xml:21:13-37
+55        <activity
+55-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-4\5752750b748335a4bab67488b7e14329\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+56            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+56-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-4\5752750b748335a4bab67488b7e14329\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+57            android:exported="false"
+57-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-4\5752750b748335a4bab67488b7e14329\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+58            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+58-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\user\.gradle\caches\transforms-4\5752750b748335a4bab67488b7e14329\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+59
+60        <meta-data
+60-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\user\.gradle\caches\transforms-4\82df03228394fab1fb12614614007775\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+61            android:name="com.google.android.gms.version"
+61-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\user\.gradle\caches\transforms-4\82df03228394fab1fb12614614007775\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+62            android:value="@integer/google_play_services_version" />
+62-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\user\.gradle\caches\transforms-4\82df03228394fab1fb12614614007775\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+63
+64        <provider
+64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+65            android:name="androidx.startup.InitializationProvider"
+65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+66            android:authorities="com.vehicleplateapp.androidx-startup"
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+67            android:exported="false" >
+67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+68            <meta-data
+68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+70                android:value="androidx.startup" />
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-4\1f0c06f94521237f79abc32a5f8de33d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+71            <meta-data
+71-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-4\de53634973e45ba7b62012cb8e869aee\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+72-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-4\de53634973e45ba7b62012cb8e869aee\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+73                android:value="androidx.startup" />
+73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-4\de53634973e45ba7b62012cb8e869aee\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+74        </provider>
+75
+76        <meta-data
+76-->[com.facebook.soloader:soloader:0.10.5] C:\Users\user\.gradle\caches\transforms-4\c5277b14eec9cc4a12d0fb10c9f8e27e\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
+77            android:name="com.facebook.soloader.enabled"
+77-->[com.facebook.soloader:soloader:0.10.5] C:\Users\user\.gradle\caches\transforms-4\c5277b14eec9cc4a12d0fb10c9f8e27e\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
+78            android:value="false" />
+78-->[com.facebook.soloader:soloader:0.10.5] C:\Users\user\.gradle\caches\transforms-4\c5277b14eec9cc4a12d0fb10c9f8e27e\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
+79    </application>
+80
+81</manifest>

@@ -1,0 +1,4 @@
+git config core.autocrlf false
+.gradle/ 
+*.apk 
+*.apk 

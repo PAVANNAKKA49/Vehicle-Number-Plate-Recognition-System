@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Complaint - IndiScan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(15, 23, 42, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            --text-main: #ffffff;
+            --text-muted: #f1f5f9;
+            --accent-danger: #f43f5e;
+        }
+
+        p,
+        .text-muted {
+            color: #f1f5f9 !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+        }
+
+        body {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0, transparent 50%);
+            min-height: 100vh;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+            padding-top: 80px;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            padding: 12px 16px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: #a855f7;
+            color: white;
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #cbd5e1 !important;
+            opacity: 0.8;
+        }
+
+        .form-select option {
+            background-color: #1e293b;
+            color: white;
+        }
+
+        .btn-danger-action {
+            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 63, 94, 0.4);
+        }
+
+        .alert-success-custom {
+            background: rgba(34, 197, 94, 0.1) !important;
+            color: #4ade80 !important;
+        }
+
+        .alert-danger-custom {
+            background: rgba(244, 63, 94, 0.1) !important;
+            color: #fb7185 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark glass-nav fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">INDISCAN</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="glass-card">
+                    <h2 class="mb-4 fw-bold">File <span style="color:var(--accent-danger)">Complaint</span></h2>
+                    <p class="text-muted mb-5">Update vehicle status in the national safety database.</p>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert {{ 'alert-success-custom' if category == 'success' else 'alert-danger-custom' }} border-0 glass-card mb-4"
+                        role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="/complaint">
+                        <div class="mb-4">
+                            <label class="form-label">Vehicle Number (Plate)</label>
+                            <input type="text" name="vehicle_number" class="form-control"
+                                placeholder="e.g. AP 10 AB 1234" required>
+                            <div class="form-text text-muted" style="font-size:0.75rem">Input must match the registry
+                                entry exactly.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Status Update</label>
+                            <select name="action" class="form-select" required>
+                                <option value="mark_stolen">🚨 MARK AS STOLEN</option>
+                                <option value="mark_safe">✅ MARK AS SAFE (RECOVERED)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="form-label">Narrative / Incidence Notes</label>
+                            <textarea name="description" class="form-control" rows="4"
+                                placeholder="Provide context regarding the vehicle status change..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger-action w-100">Update Intelligence Portal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

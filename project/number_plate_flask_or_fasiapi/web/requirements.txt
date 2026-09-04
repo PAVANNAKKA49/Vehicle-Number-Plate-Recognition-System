@@ -1,0 +1,9 @@
+flask
+opencv-python
+ultralytics
+paddlepaddle
+paddleocr
+pymongo
+python-dotenv
+werkzeug
+pyngrok

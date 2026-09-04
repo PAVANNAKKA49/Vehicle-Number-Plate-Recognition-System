@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IndiScan | Advanced LPR</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --accent-color: #f43f5e;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      --text-main: #ffffff;
+      --text-muted: #f1f5f9;
+    }
+
+    p,
+    .text-muted {
+      color: #f1f5f9 !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    body {
+      background: #0f172a;
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0, transparent 50%);
+      padding-top: 80px;
+    }
+
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .nav-pills .nav-link {
+      color: var(--text-muted);
+      border-radius: 12px;
+      font-weight: 500;
+      padding: 12px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-pills .nav-link.active {
+      background: var(--primary-gradient);
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+    }
+
+    .nav-pills .nav-link:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+
+    .btn-action {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-weight: 600;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
+      color: white;
+    }
+
+    .form-control {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: white;
+      padding: 12px 16px;
+    }
+
+    .form-control:focus {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: #a855f7;
+      color: white;
+      box-shadow: none;
+    }
+
+    .form-control::placeholder {
+      color: #cbd5e1 !important;
+      opacity: 0.8;
+    }
+
+    .form-control[type="file"] {
+      padding: 12px;
+      color: #cbd5e1;
+    }
+
+    .form-control[type="file"]::file-selector-button {
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 8px;
+      margin-right: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control[type="file"]::file-selector-button:hover {
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+    }
+
+    .result-card {
+      margin-top: 2rem;
+    }
+
+    .plate-thumb {
+      height: 50px;
+      border-radius: 8px;
+      border: 2px solid var(--glass-border);
+      transition: transform 0.3s ease;
+    }
+
+    .plate-thumb:hover {
+      transform: scale(1.1);
+    }
+
+    .stolen-pulse {
+      animation: pulse-red 2s infinite;
+      border: 2px solid var(--accent-color) !important;
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(159, 18, 57, 0.2) 100%) !important;
+      transform: scale(1.02);
+      z-index: 10;
+      position: relative;
+    }
+
+    @keyframes pulse-red {
+      0% {
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 20px rgba(244, 63, 94, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+      }
+    }
+
+    #loading {
+      margin: 3rem 0;
+    }
+
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+      border-width: 0.25rem;
+      color: #a855f7;
+    }
+
+    .page-title {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .list-group-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 8px;
+      border-radius: 12px !important;
+      color: var(--text-main);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 0.85rem;
+    }
+
+    .details-item {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .details-label {
+      color: #f1f5f9;
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .alert-error-glass {
+      background: rgba(244, 63, 94, 0.1) !important;
+      border: none !important;
+      color: #fb7185;
+    }
+
+    .alert-success-glass {
+      background: rgba(34, 197, 94, 0.1) !important;
+      color: #4ade80 !important;
+      border: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark glass-nav fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">INDISCAN</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <span class="nav-link text-light me-3">
+              Hello, <strong id="username" style="color:#a855f7">User</strong>
+            </span>
+          </li>
+          <li class="nav-item me-2">
+            <a class="nav-link" href="/register-vehicle">Register Vehicle</a>
+          </li>
+          <li class="nav-item me-2">
+            <a class="nav-link" href="/complaint">Complaints</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-outline-danger px-3" href="/logout" style="border-radius:10px">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-8">
+        {% for category, message in messages %}
+        <div
+          class="alert glass-card border-0 text-white alert-dismissible fade show {{ 'alert-error-glass' if category == 'error' else 'alert-success-glass' }}"
+          role="alert">
+          {{ message }}
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <h1 class="text-center page-title">AI Powered <span style="color:#a855f7">LPR Dashboard</span></h1>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="glass-card p-4 mb-5">
+          <ul class="nav nav-pills nav-fill mb-4" id="uploadTabs">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#photo-tab">
+                Photos
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#video-tab">
+                Videos
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#live-tab">
+                Live Cam
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#search-tab">
+                Search
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active" id="photo-tab">
+              <div class="text-center py-3">
+                <p class="text-muted mb-4">Upload one or more vehicle images for batch recognition.</p>
+                <input type="file" id="photoInput" class="form-control mb-4" multiple accept="image/*" />
+                <button onclick="handleUpload('image')" class="btn btn-action w-100">
+                  Execute Batch Recognition
+                </button>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="video-tab">
+              <div class="text-center py-3">
+                <p class="text-muted mb-4">Select a video file. Our AI will sample frames periodically.</p>
+                <input type="file" id="videoInput" class="form-control mb-4" accept="video/*" />
+                <button onclick="handleUpload('video')" class="btn btn-action w-100">
+                  Process Video Stream
+                </button>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="live-tab">
+              <div class="row g-4">
+                <div class="col-lg-8">
+                  <div class="position-relative overflow-hidden"
+                    style="border-radius: 20px; border: 1px solid var(--glass-border)">
+                    <video id="liveVideo" width="100%" height="450px" style="background-color: #000; object-fit: cover;"
+                      autoplay playsinline></video>
+                    <div class="position-absolute bottom-0 start-0 end-0 p-3"
+                      style="background: linear-gradient(transparent, rgba(0,0,0,0.8))">
+                      <div class="d-flex gap-2">
+                        <button id="startBtn" onclick="startLiveDetection()" class="btn btn-action flex-grow-1">
+                          Activate Detection
+                        </button>
+                        <button id="stopBtn" onclick="stopLiveDetection()" class="btn btn-danger flex-grow-1"
+                          style="border-radius: 12px;" disabled>
+                          Deactivate
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <canvas id="liveCanvas" style="display: none"></canvas>
+                </div>
+                <div class="col-lg-4">
+                  <h6 class="text-muted mb-3 d-flex align-items-center">
+                    <span class="p-1 rounded-circle bg-success me-2" style="width: 8px; height: 8px;"></span>
+                    Live Detection Stream
+                  </h6>
+                  <div id="livePlatesList" class="list-group pe-2" style="max-height: 400px; overflow-y: auto">
+                    <div class="text-center text-muted py-5 glass-card">
+                      <small>No plates active</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="search-tab">
+              <div class="row justify-content-center g-4">
+                <div class="col-lg-8">
+                  <div class="input-group mb-3 custom-search-group shadow-sm">
+                    <input type="text" id="searchPlateInput" class="form-control"
+                      placeholder="Enter plate number (e.g., AP 10 AB 1234)" style="background: rgba(0,0,0,0.3);" />
+                    <button onclick="searchPlate()" class="btn btn-action px-4"
+                      style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                      Search
+                    </button>
+                  </div>
+                  <div class="mt-2 text-end">
+                    <span id="gpsBadge" class="badge bg-secondary ms-2 align-self-center py-1 px-2 rounded-pill">GPS:
+                      Initializing...</span>
+                  </div>
+                  <div id="searchResults" class="mt-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="loading" class="d-none text-center">
+          <div class="spinner-border" role="status"></div>
+          <p class="mt-3 text-muted">Neural engine processing frames...</p>
+        </div>
+
+        <div id="resultsContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let liveStream = null;
+    let liveDetectionActive = false;
+    let liveDetectionInterval = null;
+    const liveDetectedPlates = {};
+
+    function toggleVehicleDetails(plate) {
+      const detailsDiv = document.getElementById(`details-${plate}`);
+      if (detailsDiv.style.display === "none") {
+        detailsDiv.style.display = "block";
+      } else {
+        detailsDiv.style.display = "none";
+      }
+    }
+
+    async function quickSearchPlate(plateId) {
+      const searchDiv = document.getElementById(`quickSearch-${plateId}`);
+      const plateInput = document.getElementById(`plateInput-${plateId}`);
+      const numberPlate = plateInput.value.trim().toUpperCase();
+
+      if (!numberPlate) return;
+
+      searchDiv.innerHTML = '<div class="text-center py-2"><div class="spinner-border spinner-border-sm text-primary"></div></div>';
+      searchDiv.style.display = "block";
+
+      try {
+        const response = await fetch("/check-plate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ number_plate: numberPlate }),
+        });
+        const data = await response.json();
+
+        if (data.status === "found") {
+          const details = data.data;
+          searchDiv.innerHTML = `
+            <div class="glass-card p-3 mt-2 border-success" style="background: rgba(25, 135, 84, 0.1)">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h6 class="mb-0 text-success">✓ Record Found</h6>
+                <span class="badge-status bg-${data.is_stolen ? 'danger' : 'success'}">${data.is_stolen ? 'STOLEN' : 'SAFE'}</span>
+              </div>
+              <div class="details-grid mt-2">
+                <div class="details-item"><span class="details-label">Owner</span>${details.owner_name}</div>
+                <div class="details-item"><span class="details-label">Vehicle</span>${details.vehicle_name}</div>
+                <div class="details-item"><span class="details-label">Location</span>${details.owner_location}</div>
+                <div class="details-item"><span class="details-label">Contact</span>${details.phone_number}</div>
+              </div>
+            </div>`;
+        } else {
+          searchDiv.innerHTML = `
+            <div class="glass-card p-3 mt-2 border-warning" style="background: rgba(255, 193, 7, 0.1)">
+              <h6 class="text-warning mb-2">⚠ Not Registered</h6>
+              <p class="small text-muted mb-2">No record exists in the central database.</p>
+              <a href="/register-vehicle" class="btn btn-sm btn-action w-100 py-2">Start Registration</a>
+            </div>`;
+        }
+      } catch (err) {
+        searchDiv.innerHTML = `<div class="text-danger small p-2">Error: ${err.message}</div>`;
+      }
+    }
+
+    async function searchPlate() {
+      const plateInput = document.getElementById("searchPlateInput");
+      const numberPlate = plateInput.value.trim().toUpperCase();
+      if (!numberPlate) return;
+
+      const resultsDiv = document.getElementById("searchResults");
+      resultsDiv.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-primary"></div></div>';
+
+      try {
+        const response = await fetch("/check-plate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ number_plate: numberPlate }),
+        });
+        const data = await response.json();
+
+        if (data.status === "found") {
+          const details = data.data;
+          resultsDiv.innerHTML = `
+            <div class="glass-card p-4 ${data.is_stolen ? 'stolen-pulse' : 'border-success'}">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0" style="${data.is_stolen ? 'font-size: 2.2rem; color: #ff8e98; font-weight: 800;' : ''}">${numberPlate}</h4>
+                <span class="badge-status ${data.is_stolen ? 'bg-danger px-4 py-2 text-uppercase fw-bold rounded-pill' : 'bg-success'}" style="${data.is_stolen ? 'font-size: 1.1rem; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(220,53,69,0.5);' : ''}">${data.is_stolen ? '🚨 STOLEN VEHICLE' : '✓ SECURE'}</span>
+              </div>
+              ${data.is_stolen ? `
+                <div class="alert alert-danger mb-4 border-0 shadow-sm" style="background: rgba(220, 53, 69, 0.2); color: #ff8e98; border-radius: 12px; padding: 15px;">
+                  <h5 class="mb-2"><strong style="color: #fff;">CRITICAL ALERT:</strong> This vehicle has been reported stolen.</h5>
+                  <p class="mb-0">Please exercise caution and wait for law enforcement synchronization.</p>
+                </div>
+              ` : ''}
+              <div class="details-grid">
+                <div class="details-item"><span class="details-label">Registered Owner</span>${details.owner_name}</div>
+                <div class="details-item"><span class="details-label">Mobile Number</span>${details.phone_number}</div>
+                <div class="details-item"><span class="details-label">Vehicle Model</span>${details.vehicle_name}</div>
+                <div class="details-item"><span class="details-label">Fuel/Type</span>${details.vehicle_type}</div>
+                <div class="details-item"><span class="details-label">Registration Hub</span>${details.owner_location}</div>
+                <div class="details-item"><span class="details-label">Category</span>${details.vehicle_category}</div>
+              </div>
+            </div>`;
+        } else {
+          resultsDiv.innerHTML = `
+            <div class="glass-card p-4 border-warning text-center">
+              <h5 class="text-warning mb-3">No Record Found</h5>
+              <p class="text-muted mb-4">The plate <b>${numberPlate}</b> does not match any registered vehicle.</p>
+              <a href="/register-vehicle" class="btn btn-action px-5">Register Now</a>
+            </div>`;
+        }
+      } catch (err) {
+        resultsDiv.innerHTML = `<div class="alert alert-danger">Error: ${err.message}</div>`;
+      }
+    }
+
+    let userLocation = { lat: null, lon: null };
+    let locationWatchId = null;
+
+    function updateGPSStatus(status, color) {
+      const badge = document.getElementById("gpsBadge");
+      if (badge) {
+        badge.innerText = `GPS: ${status}`;
+        badge.className = `badge bg-${color} ms-2`;
+      }
+    }
+
+    async function startLiveDetection() {
+      // Check if Location is captured
+      if (!userLocation.lat || !userLocation.lon) {
+        alert("Waiting for GPS location... Please ensure location access is granted and wait for the 'GPS: Ready' indicator.");
+        return;
+      }
+
+      try {
+        const video = document.getElementById("liveVideo");
+        const startBtn = document.getElementById("startBtn");
+        const stopBtn = document.getElementById("stopBtn");
+        const platesList = document.getElementById("livePlatesList");
+
+        // Redundant watch removed - we now rely on the global watch started at load
+        // Simply ensure we have the location
+        if (!userLocation.lat || !userLocation.lon) {
+          updateGPSStatus("Not Ready", "warning");
+        }
+
+        liveStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
+        });
+        video.srcObject = liveStream;
+        video.play();
+
+        liveDetectionActive = true;
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        platesList.innerHTML = '<div class="text-center text-muted py-5"><div class="spinner-border spinner-border-sm me-2"></div>Engine Active...</div>';
+
+        liveDetectionInterval = setInterval(() => {
+          if (liveDetectionActive) captureAndProcess();
+        }, 1000);
+      } catch (err) {
+        alert("Camera access denied.");
+      }
+    }
+
+    async function captureAndProcess() {
+      const video = document.getElementById("liveVideo");
+      const canvas = document.getElementById("liveCanvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0);
+
+      canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append("media_type", "live");
+        formData.append("file", blob, "frame.jpg");
+
+        // Include Location if available
+        if (userLocation.lat && userLocation.lon) {
+          formData.append("latitude", userLocation.lat);
+          formData.append("longitude", userLocation.lon);
+        }
+
+        try {
+          const response = await fetch("/upload", { method: "POST", body: formData });
+          const data = await response.json();
+          updateLivePlatesList(data);
+        } catch (err) { console.error(err); }
+      }, "image/jpeg", 0.6);
+    }
+
+    function updateLivePlatesList(data) {
+      if (!data || data.length === 0) return;
+      const result = data[0];
+      const platesList = document.getElementById("livePlatesList");
+
+      for (const [plate, info] of Object.entries(result.plates)) {
+        if (!liveDetectedPlates[plate]) {
+          liveDetectedPlates[plate] = {
+            img: info.img_base64,
+            state: info.state,
+            stolen: info.is_stolen,
+            db_status: info.db_status,
+            vehicle_details: info.vehicle_details
+          };
+        }
+      }
+
+      if (Object.keys(liveDetectedPlates).length > 0) {
+        let html = "";
+        for (const [plate, info] of Object.entries(liveDetectedPlates)) {
+          const plateId = plate.replace(/\s+/g, "-");
+
+          let detailsHtml = info.vehicle_details ? `
+                <div class="details-grid mt-2" style="font-size: 0.7rem;">
+                    <div class="details-item p-2"><span class="details-label">Owner</span>${info.vehicle_details.owner_name}</div>
+                    <div class="details-item p-2"><span class="details-label">Vehicle</span>${info.vehicle_details.vehicle_name}</div>
+                    <div class="details-item p-2"><span class="details-label">Location</span>${info.vehicle_details.owner_location}</div>
+                    <div class="details-item p-2"><span class="details-label">Contact</span>${info.vehicle_details.phone_number}</div>
+                </div>`
+            : `<div class="mt-2 p-2 glass-card text-center border-warning">
+                  <small class="text-warning d-block mb-1">⚠ Not Registered</small>
+                  <a href="/register-vehicle" class="btn btn-sm btn-action w-100 py-1" style="font-size: 0.7rem;">Register Now</a>
+                 </div>`;
+
+          html += `
+            <div class="list-group-item p-3 ${info.stolen ? 'stolen-pulse' : ''}" style="background: rgba(255,255,255,0.05); margin-bottom: 10px; border-radius: 15px;">
+              <div class="d-flex align-items-center mb-2">
+                <img src="data:image/jpeg;base64,${info.img}" class="plate-thumb me-3" style="${info.stolen ? 'height: 70px; border-color: #f43f5e; box-shadow: 0 0 15px rgba(244,63,94,0.5); border-width: 3px;' : ''}">
+                <div class="flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-bold" style="${info.stolen ? 'font-size: 1.4rem; color: #ff8e98;' : ''}">${plate}</span>
+                    <span class="badge ${info.stolen ? 'bg-danger px-2 py-1' : 'bg-success'}" style="${info.stolen ? 'font-size: 0.8rem; box-shadow: 0 2px 8px rgba(220,53,69,0.5); letter-spacing: 0.5px;' : 'font-size: 0.6rem;'}">${info.stolen ? '🚨 STOLEN' : 'SAFE'}</span>
+                  </div>
+                  <small class="text-muted d-block">${info.state}</small>
+                </div>
+              </div>
+              
+              ${info.stolen ? `
+                <div class="alert alert-danger p-3 mb-2 border-0 shadow-sm" style="font-size: 0.85rem; background: rgba(220, 53, 69, 0.2); color: #ff8e98; border-radius: 10px;">
+                  <strong style="color: #fff; font-size: 0.9rem;">🚨 CRITICAL WARNING:</strong> <br>
+                  Stolen vehicle detected in live stream. Do not approach.
+                </div>
+              ` : ''}
+
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-primary flex-grow-1 py-1" style="border-radius:8px; font-size: 0.7rem;" onclick="toggleVehicleDetails('${plate}')">
+                   ${info.db_status === 'found' ? 'Details' : 'Action'}
+                </button>
+                <button class="btn btn-sm btn-outline-secondary py-1" style="border-radius:8px; font-size: 0.7rem;" onclick="document.getElementById('search-ui-${plateId}').style.display='block'">
+                   Quick Search
+                </button>
+              </div>
+
+              <div id="details-${plate}" style="display:none;">${detailsHtml}</div>
+              
+              <div id="search-ui-${plateId}" style="display:none;" class="mt-2 text-center">
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" value="${plate}" id="plateInput-${plateId}" style="font-size: 0.7rem;">
+                  <button class="btn btn-action" type="button" onclick="quickSearchPlate('${plateId}')" style="font-size: 0.7rem;">Go</button>
+                </div>
+                <div id="quickSearch-${plateId}" style="display:none;"></div>
+              </div>
+            </div>`;
+        }
+        platesList.innerHTML = html;
+      }
+    }
+
+    function stopLiveDetection() {
+      const video = document.getElementById("liveVideo");
+      const startBtn = document.getElementById("startBtn");
+      const stopBtn = document.getElementById("stopBtn");
+
+      liveDetectionActive = false;
+      clearInterval(liveDetectionInterval);
+
+      if (liveStream) {
+        liveStream.getTracks().forEach(t => t.stop());
+        liveStream = null;
+      }
+
+      // Stop Location Tracking
+      if (locationWatchId) {
+        navigator.geolocation.clearWatch(locationWatchId);
+        locationWatchId = null;
+        console.log("Geolocation tracking stopped.");
+      }
+
+      video.srcObject = null;
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      document.getElementById("livePlatesList").innerHTML = '<div class="text-center text-muted py-5 small">Session ended</div>';
+    }
+
+    async function handleUpload(type) {
+      const input = type === "image" ? document.getElementById("photoInput") : document.getElementById("videoInput");
+      if (input.files.length === 0) return;
+
+      const formData = new FormData();
+      formData.append("media_type", type);
+      for (let i = 0; i < input.files.length; i++) formData.append("file", input.files[i]);
+
+      // Mandatory GPS for Alerts
+      if (userLocation.lat && userLocation.lon) {
+        formData.append("latitude", userLocation.lat);
+        formData.append("longitude", userLocation.lon);
+        console.log("✓ Uploading with GPS:", userLocation.lat, userLocation.lon);
+      } else {
+        console.warn("⚠ Uploading WITHOUT GPS - alerts will lack precise officer location.");
+      }
+
+      const loader = document.getElementById("loading");
+      const container = document.getElementById("resultsContainer");
+
+      loader.classList.remove("d-none");
+      container.innerHTML = "";
+
+      try {
+        const response = await fetch("/upload", { method: "POST", body: formData });
+        const data = await response.json();
+        loader.classList.add("d-none");
+
+        data.forEach((result) => {
+          let cardHtml = `
+            <div class="glass-card mb-5 overflow-hidden">
+                <div class="p-3 border-bottom" style="background: rgba(255,255,255,0.03)">
+                  <h6 class="mb-0 text-muted"><span class="text-white">Analysis:</span> ${result.filename}</h6>
+                </div>
+                <div class="p-4">
+                    <div class="row g-4">
+                        <div class="col-lg-7">
+                            ${result.type === "image"
+              ? `<div class="text-center"><img src="data:image/jpeg;base64,${result.main_img}" class="img-fluid rounded-4 shadow-lg"></div>`
+              : `<div class="glass-card p-5 text-center"><h5 class="text-primary mb-3">Video Stream Processed</h5><p class="text-muted small">Sequential frame analysis completed. Results aggregated below.</p></div>`
+            }
+                        </div>
+                        <div class="col-lg-5">
+                            <h5 class="mb-4">Detections</h5>
+                            <div class="list-group">`;
+
+          for (const [plate, info] of Object.entries(result.plates)) {
+            const plateId = plate.replace(/\s+/g, "-");
+            const detailsHtml = info.vehicle_details ? `
+                <div class="details-grid mt-3">
+                    <div class="details-item"><span class="details-label">Owner</span>${info.vehicle_details.owner_name}</div>
+                    <div class="details-item"><span class="details-label">Vehicle</span>${info.vehicle_details.vehicle_name}</div>
+                    <div class="details-item"><span class="details-label">Location</span>${info.vehicle_details.owner_location}</div>
+                    <div class="details-item"><span class="details-label">Category</span>${info.vehicle_details.vehicle_category}</div>
+                </div>`
+              : `<div class="mt-3 p-3 glass-card text-center border-warning">
+                  <small class="text-warning d-block mb-2">⚠ Not in Database</small>
+                  <a href="/register-vehicle" class="btn btn-sm btn-action w-100 py-1">Register Now</a>
+                 </div>`;
+
+            cardHtml += `
+                    <div class="list-group-item p-3 mb-3 ${info.is_stolen ? 'stolen-pulse' : ''}" style="${info.is_stolen ? 'border-radius: 16px;' : ''}">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="data:image/jpeg;base64,${info.img_base64}" class="plate-thumb me-3" style="${info.is_stolen ? 'height: 80px; border: 3px solid #f43f5e; box-shadow: 0 0 15px rgba(244,63,94,0.5);' : ''}">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <span class="fw-bold" style="${info.is_stolen ? 'font-size: 1.5rem; color: #ff8e98;' : ''}">${plate}</span>
+                                  <span class="badge-status ${info.is_stolen ? 'bg-danger px-3 py-2 text-uppercase' : 'bg-success'}" style="${info.is_stolen ? 'font-size: 0.95rem; box-shadow: 0 4px 10px rgba(220,53,69,0.5);' : ''}">${info.is_stolen ? '🚨 STOLEN' : 'SAFE'}</span>
+                                </div>
+                                <div class="d-flex gap-2 mt-2 align-items-center">
+                                  ${info.is_stolen ? `<span class="badge bg-danger text-white px-2 py-1" style="font-size:0.75rem; letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.2);">LAW ENFORCEMENT SYNCED</span>` : ''}
+                                  <span class="badge bg-dark text-muted small" style="${info.is_stolen ? 'font-size:0.75rem' : 'font-size:0.6rem'}">${info.db_status === 'found' ? '✓ Registered' : '? Unknown'}</span>
+                                  <span class="text-muted small" style="${info.is_stolen ? 'font-size:0.75rem' : 'font-size:0.6rem'}">${info.state}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${info.is_stolen ? `
+                          <div class="alert alert-danger px-3 py-2 mb-3 border-0 d-flex align-items-center shadow-sm" style="background: rgba(220, 53, 69, 0.2); color: #ff8e98; border-radius: 10px;">
+                            <span class="me-3" style="font-size: 1.8rem;">🚨</span>
+                            <div>
+                                <h6 class="mb-1 fw-bold" style="color: #fff; letter-spacing: 0.5px;">CRITICAL MATCH FOUND</h6>
+                                <p class="mb-0" style="font-size: 0.85rem;">Vehicle marked as stolen in the central registry. Alert dispatched.</p>
+                            </div>
+                          </div>
+                        ` : ''}
+                        
+                        <div class="d-flex gap-2 mb-3">
+                          <button class="btn btn-sm btn-outline-primary flex-grow-1" style="border-radius:8px" onclick="toggleVehicleDetails('${plate}')">
+                             ${info.db_status === 'found' ? 'Details' : 'Register'}
+                          </button>
+                          <button class="btn btn-sm btn-outline-secondary" style="border-radius:8px" onclick="document.getElementById('search-ui-${plateId}').style.display='block'">
+                             Search
+                          </button>
+                        </div>
+
+                        <div id="details-${plate}" style="display:none;">${detailsHtml}</div>
+                        
+                        <div id="search-ui-${plateId}" style="display:none;" class="mt-2">
+                          <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" value="${plate}" id="plateInput-${plateId}">
+                            <button class="btn btn-action" type="button" onclick="quickSearchPlate('${plateId}')">Go</button>
+                          </div>
+                          <div id="quickSearch-${plateId}" style="display:none;"></div>
+                        </div>
+                    </div>`;
+          }
+
+          if (Object.keys(result.plates).length === 0) {
+            cardHtml += `<div class="text-center text-muted py-5 glass-card">No intelligence detected</div>`;
+          }
+
+          cardHtml += `</div></div></div></div></div>`;
+          container.innerHTML += cardHtml;
+        });
+      } catch (err) { loader.classList.add("d-none"); }
+    }
+
+    fetch("/api/get-username")
+      .then(r => r.json())
+      .then(d => { if (d.username) document.getElementById("username").textContent = d.username; });
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Start geolocation watch as soon as page is ready
+      if (navigator.geolocation) {
+        startGeolocationWatch();
+      }
+    });
+
+    function startGeolocationWatch() {
+      if (locationWatchId) return;
+      updateGPSStatus("Initializing...", "info");
+      locationWatchId = navigator.geolocation.watchPosition(
+        (position) => {
+          userLocation.lat = position.coords.latitude;
+          userLocation.lon = position.coords.longitude;
+          updateGPSStatus("Ready", "success");
+        },
+        (err) => {
+          console.warn("Initial GPS Error:", err.message);
+          updateGPSStatus("Offline/Denied", "danger");
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
+  </script>
+</body>
+
+</html>
